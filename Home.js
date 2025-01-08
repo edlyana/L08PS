@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView, StyleSheet, SectionList, StatusBar, Button, TextInput} from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome6";
-// import {dataSource} from './Data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {dataSource} from "./Data";
 
 const styles = StyleSheet.create({
     opacityStyle: {
@@ -63,7 +63,7 @@ const Home = ({navigation}) => {
         return(
             <TouchableOpacity style={styles.opacityStyle} onPress={() => {
                 let datastr = JSON.stringify(mydata);
-                navigation.navigate("Edit", {index: index, type: section.title, key: item.key, num: item.num, img: item.img, numCopies: item.numCopies});
+                navigation.navigate("Edit", {index: index, type: section.title, key: item.key, num: item.num, img: item.img, numCopies: item.numCopies, datastring:datastr});
             }}>
                 <Text style={styles.textStyle}>
                     {item.key} {'\n'}
@@ -85,7 +85,7 @@ const Home = ({navigation}) => {
                 }}/>
             </View>
             <View>
-                <SectionList sections={dataSource} renderItem={renderItem}
+                <SectionList sections={mydata} renderItem={renderItem}
                              renderSectionHeader={({section:{title, bkColor, nameIcon}})=>(
                                  <Text style={[styles.headerText, {backgroundColor:bkColor}]}><Icon name={nameIcon} size={25} color={"black"}/>  {title}</Text>
                              )}

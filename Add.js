@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-// import {dataSource} from './Data';
 import {TextInput, View, Text, Button} from "react-native";
 import RNPickerSelect from 'react-native-picker-select';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -20,23 +19,23 @@ const Add = ({navigation, route}) => {
     return (
         <View style={{padding: 10}}>
             <View style={{padding: 10}}>
-                <Text style={{fontWeight: 'bold'}}>Title:</Text>
-                <TextInput style={{borderWidth: 1}} onChangeText={(text) => setName(text)}/>
+                <Text style={{fontWeight: 'bold', fontSize:17}}>Title:</Text>
+                <TextInput style={{borderWidth: 1, borderStyle:'dotted', borderColor:'#E25439', borderRadius:5}} onChangeText={(text) => setName(text)}/>
             </View>
 
             <View style={{padding: 10}}>
-                <Text style={{fontWeight: 'bold'}}>ISBN:</Text>
-                <TextInput style={{borderWidth: 1}} onChangeText={(text) => setIsbnNum(text)}/>
+                <Text style={{fontWeight: 'bold',fontSize:17}}>ISBN:</Text>
+                <TextInput style={{borderWidth: 1, borderStyle:'dotted', borderColor:'#E25439', borderRadius:5}} onChangeText={(text) => setIsbnNum(text)}/>
             </View>
 
             <View style={{padding: 10}}>
-                <Text style={{fontWeight: 'bold'}}>Image URL:</Text>
-                <TextInput style={{borderWidth: 1}} onChangeText={(text) => setLinkURL(text)}/>
+                <Text style={{fontWeight: 'bold', fontSize:17}}>Image URL:</Text>
+                <TextInput style={{borderWidth: 1, borderStyle:'dotted', borderColor:'#E25439', borderRadius:5}} onChangeText={(text) => setLinkURL(text)}/>
             </View>
 
             <View style={{padding: 10}}>
-                <Text style={{fontWeight: 'bold'}}>Copies Owned:</Text>
-                <TextInput style={{borderWidth: 1}} onChangeText={(text) => setCopies(text)}/>
+                <Text style={{fontWeight: 'bold', fontSize:17}}>Copies Owned:</Text>
+                <TextInput style={{borderWidth: 1, borderStyle:'dotted', borderColor:'#E25439', borderRadius:5}} onChangeText={(text) => setCopies(text)}/>
             </View>
 
             <View style={{padding: 10}}>
@@ -50,7 +49,7 @@ const Add = ({navigation, route}) => {
                     ]}
                 />
             </View>
-            <Button title="SUBMIT" onPress={() => {
+            <Button color='#436B5C' title="SUBMIT" onPress={() => {
                 let mydata = JSON.parse(route.params.datastring);
                 let item = {key: name, num: isbnNum, img: linkURL, numCopies: copies};  // dataSource {key: x, num: x, img: x, numCopies: x}
                 let indexNum = 0;
