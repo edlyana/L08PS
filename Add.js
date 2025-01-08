@@ -1,15 +1,21 @@
 import React, {useState} from 'react';
-import {dataSource} from './Data';
+// import {dataSource} from './Data';
 import {TextInput, View, Text, Button} from "react-native";
 import RNPickerSelect from 'react-native-picker-select';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Add = ({navigation}) => {
+const Add = ({navigation, route}) => {
     const [name, setName] = useState('');  // letter/name == title/name
     const [isbnNum, setIsbnNum] = useState();   // pokemon number == ISBN
     const [linkURL, setLinkURL] = useState('');   // pokemon type == image URL
     const [copies, setCopies] = useState();   // copies owned of that book
 
     const [category, setCategory] = useState('');
+
+    const setData = async(value) => {
+        AsyncStorage.setItem('alphadata', value);
+        navigation.navigate('Home');
+    }
 
     return (
         <View style={{padding: 10}}>
@@ -45,6 +51,7 @@ const Add = ({navigation}) => {
                 />
             </View>
             <Button title="SUBMIT" onPress={() => {
+                let mydata = JSON.parse(route.params.datastring);
                 let item = {key: name, num: isbnNum, img: linkURL, numCopies: copies};  // dataSource {key: x, num: x, img: x, numCopies: x}
                 let indexNum = 0;
                 if(category == "Action") {
@@ -53,8 +60,10 @@ const Add = ({navigation}) => {
                 if(category == "Others") {
                     indexNum = 2;
                 }
-                dataSource[indexNum].data.push(item);
-                navigation.navigate('Home')
+                mydata[indexNum].data.push(item);
+                let stringdata = JSON.stringify(mydata);  // stringdata contains new data imputed by user
+                setData(stringdata);
+                // navigation.navigate('Home')
             }
             }
             />

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView, StyleSheet, SectionList, StatusBar, Button, TextInput} from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome6";
-import {dataSource} from './Data';
+// import {dataSource} from './Data';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
     opacityStyle: {
@@ -43,9 +44,25 @@ const styles = StyleSheet.create({
 
 const Home = ({navigation}) => {
 
+    const [mydata, setMyData] = useState([]);
+
+    const getData = async() => {
+        let datastr = await AsyncStorage.getItem('alphadata');
+        if(datastr != null){
+            jsondata = JSON.parse(datastr);
+            setMyData(jsondata);
+        }
+        else{
+            setMyData(dataSource);
+        }
+    };
+
+    getData();
+
     const renderItem = ({item, index, section}) => {
         return(
             <TouchableOpacity style={styles.opacityStyle} onPress={() => {
+                let datastr = JSON.stringify(mydata);
                 navigation.navigate("Edit", {index: index, type: section.title, key: item.key, num: item.num, img: item.img, numCopies: item.numCopies});
             }}>
                 <Text style={styles.textStyle}>
@@ -62,7 +79,10 @@ const Home = ({navigation}) => {
         <View style={[styles.container, { marginBottom: 150, backgroundColor:'#E8E2DB'}]}>
             <StatusBar hidden={true}/>
             <View style={styles.buttonContainer}>
-                <Button color='#436B5C' title="New Book" onPress={()=> {navigation.navigate('Add')}}/>
+                <Button color='#436B5C' title="New Book" onPress={()=> {
+                    let datastr = JSON.stringify(mydata);
+                    navigation.navigate('Add', {datastring:datastr});
+                }}/>
             </View>
             <View>
                 <SectionList sections={dataSource} renderItem={renderItem}
