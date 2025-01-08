@@ -6,7 +6,7 @@ const Edit = ({navigation, route}) => {
     const [name, setName] = useState(route.params.key); // .key is being called here by Home.js   // letter = name
     const [isbnNum, setIsbnNum] = useState(route.params.num.toString());
     const [linkURL, setLinkURL] = useState(route.params.img);
-    const [copies, setCopies] = useState(route.params.numCopies.toString());   // copies owned of that book
+    const [copies, setCopies] = useState(route.params.numCopies.toString());   // ERROR: undefined toString()
 
     const [category, setCategory] = useState(route.params.category);  // type == category
 
@@ -34,15 +34,16 @@ const Edit = ({navigation, route}) => {
 
             <View style={{flexDirection:'row'}}>
                 <View style={{margin:10, flex:1}}>
-                    {/*<Button title="SAVE" onPress={() => {*/}
+                    {/*<Button title="SAVE"*/}
+                    {/*        onPress={() => {*/}
                     {/*    let indexNum = 0;*/}
-                    {/*    if (route.params.type === "Grass") {*/}
+                    {/*    if (route.params.category === "Action") {*/}
                     {/*        indexNum = 1;*/}
                     {/*    }*/}
-                    {/*    if (route.params.type === "Psychic") {*/}
+                    {/*    if (route.params.category === "Others") {*/}
                     {/*        indexNum = 2;*/}
                     {/*    }*/}
-                    {/*    dataSource[indexNum].data[route.params.index] = {key: name, num: parseInt(pokeNum)};*/}
+                    {/*    dataSource[indexNum].data[route.params.index] = {key: name, num: parseInt(isbnNum), img: linkURL, numCopies: parseInt(copies)};*/}
                     {/*    navigation.navigate("Home");*/}
                     {/*}}/>*/}
 
@@ -50,10 +51,11 @@ const Edit = ({navigation, route}) => {
                         title="SAVE"
                         onPress={() => {
                             let sectionIndex = dataSource.findIndex((section) => section.title === route.params.category);
-                            dataSource[sectionIndex].data[route.params.index] = { key: name, num: parseInt(isbnNum), img: linkURL, numCopies: parseInt(copies), };
+                            dataSource[sectionIndex].data[route.params.index] = { key: name, num: parseInt(isbnNum), img: linkURL, numCopies: parseInt(copies) };
                             navigation.navigate("Home");
                         }}
                     />
+
                 </View>
 
                 <View style={{margin:10, flex:1}}>

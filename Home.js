@@ -46,7 +46,7 @@ const Home = ({navigation}) => {
     const renderItem = ({item, index, section}) => {
         return(
             <TouchableOpacity style={styles.opacityStyle} onPress={() => {
-                navigation.navigate("Edit", {index: index, type: section.title, key: item.key, num: item.num});
+                navigation.navigate("Edit", {index: index, type: section.title, key: item.key, num: item.num, img: item.img, numCopies: item.numCopies});
             }}>
                 <Text style={styles.textStyle}>
                     {item.key} {'\n'}
